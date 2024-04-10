@@ -9,12 +9,12 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset('images/logo.png'),
+          Image.asset('assets/images/logo.png'),
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('images/logoseta.png'),
+                Image.asset('assets/images/logoseta.png'),
                 const SizedBox(height: 40),
                 const Text(
                   'Book your haircut\n     in seconds',
@@ -48,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                       Modular.to.pushNamed('/login');
                     },
                     child: Image.asset(
-                      'images/Login.png',
+                      'assets/images/Login.png',
                       key: const Key('login_key'),
                     ),
                   ),
@@ -58,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                       Modular.to.pushNamed('/register');
                     },
                     child: Image.asset(
-                      'images/Register.png',
+                      'assets/images/Register.png',
                       key: const Key('register_key'),
                     ),
                   ), // Sua segunda imagem

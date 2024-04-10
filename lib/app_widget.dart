@@ -1,3 +1,4 @@
+import 'package:barbearia/src/shared/theme/material-theme/color_schemes.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -8,10 +9,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Modular.setInitialRoute('/welcome');
     return MaterialApp.router(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       debugShowCheckedModeBanner: false,
       routerConfig: Modular.routerConfig,
     );
