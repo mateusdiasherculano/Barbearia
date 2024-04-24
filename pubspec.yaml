@@ -31,7 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_modular: ^6.3.3
-  flutter_bloc: ^8.1.5
+  flutter_triple: ^3.0.0
+  firebase_auth: ^4.19.1
+  firebase_core: ^2.29.0
+  font_awesome_flutter: ^10.7.0
+  design_system: ^1.0.2
 
 
 
@@ -71,6 +75,7 @@ flutter:
    - assets/images/logoseta.png
    - assets/images/Login.png
    - assets/images/Register.png
+   - assets/images/redAlert.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

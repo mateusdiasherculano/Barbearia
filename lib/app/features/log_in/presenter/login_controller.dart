@@ -1,29 +1,39 @@
-import 'package:barbearia/app/features/log_in/presenter/login_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:barbearia/app/features/log_in/presenter/log_in_store.dart';
+import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class LoginController extends Cubit<LoginState> {
-  LoginController() : super(InitialState());
+class LoginController extends Disposable {
+  final LoginStore store;
 
-  /* Future<void> sign(String email, String password) async {
-    // Emitindo o estado de Loading para indicar que a autenticação está em andamento
-    emit(LoadingState());
+  LoginController(this.store);
 
-    try {
-      // Simulando uma autenticação assíncrona
-      await Future.delayed(Duration(seconds: 2));
+  ValueNotifier<String?> emailError = ValueNotifier(null);
+  ValueNotifier<String?> passwordError = ValueNotifier(null);
+  ValueNotifier<bool?> showPassword = ValueNotifier(false);
+  ValueNotifier<bool?> emailValidation = ValueNotifier(false);
 
-      // Verificação simulada de credenciais
-      if (email != '' && password != '') {
-        // Emite o estado LoadedState para indicar que a autenticação foi bem-sucedida
-        emit(LoadedState());
-      } else {
-        // Emite o estado ErrorState com uma mensagem de erro
-        emit(ErrorState(
-            'Credenciais inválidas. Por favor, verifique seu e-mail e senha.'));
-      }
-    } catch (e) {
-      // Emite o estado ErrorState caso ocorra uma exceção durante a autenticação
-      emit(ErrorState('Ocorreu um erro durante a autenticação: $e'));
+  Future<void> login(String email, String password) async {
+    if (email.isEmpty) {
+      emailError.value = 'E-mail não pode ser vazio';
+      return;
     }
-  }*/
+    if (!email.isEmail) {
+      emailError.value = 'Email não é valido.';
+      return;
+    }
+    if (password.isEmpty) {
+      passwordError.value = 'Senha nao pode ser vazio';
+      return;
+    }
+    store.login(email, password);
+  }
+
+  @override
+  void dispose() {
+    emailError.dispose();
+    passwordError.dispose();
+    showPassword.dispose();
+    emailValidation.dispose();
+  }
 }

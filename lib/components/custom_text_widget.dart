@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomTextField extends StatefulWidget {
-  final IconData icon;
-  final String label;
+  final IconData? icon;
+  final String? label;
   final bool isSecret;
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final TextEditingController? controller;
-  final bool readOnly;
+  final Widget? iconSufix;
+  final TextInputType? keyboardType;
+  final String? errorMessage;
+  final bool? showValidated;
+  final ValueChanged<String>? onChanged;
+  final List<String>? autofillHints;
+  final bool? obscureText;
   final double borderRadius; // Nova propriedade para o raio da borda
 
   const CustomTextField({
-    Key? key, // Adicionei o tipo de dado Key
-    required this.icon,
-    required this.label,
+    Key? key,
+    this.icon,
+    this.label,
     this.isSecret = false,
     this.inputFormatters,
     this.initialValue,
     this.controller,
-    this.readOnly = false,
     this.borderRadius = 18.0, // Valor padrão para o raio da borda
-  }) : super(key: key);
+    this.errorMessage,
+    this.showValidated,
+    this.autofillHints,
+    this.onChanged,
+    this.keyboardType,
+    this.obscureText,
+    this.iconSufix,
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -33,7 +46,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-
     isObscure = widget.isSecret;
   }
 
@@ -42,25 +54,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
+        onChanged: widget.onChanged,
         controller: widget.controller,
-        readOnly: widget.readOnly,
+        keyboardType: widget.keyboardType,
+        autofillHints: widget.autofillHints,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
         decoration: InputDecoration(
-          suffixIcon: widget.isSecret
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isObscure = !isObscure;
-                    });
-                  },
-                  icon:
-                      Icon(isObscure ? Icons.visibility : Icons.visibility_off),
-                )
-              : null,
-          prefixIcon: Icon(widget.icon),
           labelText: widget.label,
+          errorText: widget.errorMessage,
+          suffixIcon: widget.iconSufix ?? _getSuffixIcon(),
+          prefixIcon: Icon(widget.icon),
           isDense: true,
           border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
@@ -71,5 +76,28 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
       ),
     );
+  }
+
+  Widget? _getSuffixIcon() {
+    if (widget.obscureText != null) {
+      return IconButton(
+        icon: Icon(
+          (isObscure == false ? Icons.visibility : Icons.visibility_off),
+        ),
+        onPressed: () {
+          setState(() {
+            isObscure = !(isObscure == true);
+          });
+        },
+      );
+    } else {
+      if (widget.showValidated == true) {
+        return const Icon(
+          FontAwesomeIcons.check,
+          color: Color(0xff03A9F4),
+          size: 16,
+        );
+      }
+    }
   }
 }
