@@ -17,7 +17,7 @@ class OutlineLoadingButton extends StatelessWidget {
       child: OutlinedButton(
         onPressed: loading ? () {} : onPressed,
         style: OutlinedButton.styleFrom(
-          side: BorderSide(width: 1),
+          side: const BorderSide(width: 1),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),

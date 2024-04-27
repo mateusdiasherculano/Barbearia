@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class AppUtils {
   AppUtils._();
 
@@ -14,4 +16,19 @@ class AppUtils {
   /// Checks if string is email.
   static bool isEmail(String s) => hasMatch(s,
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+  static String? getMessage(FirebaseAuthException error) {
+    switch (error.code) {
+      case 'user-not-found':
+        return 'Usuário não encontrado. Por favor, verifique o email fornecido.';
+      case 'invalid-credential':
+        return 'E-mail ou Senha inválidos. Por favor, verifique seus dados.';
+      case 'invalid-email':
+        return 'Email inválido. Por favor, verifique o formato do email.';
+      case 'wrong-password':
+        return 'Senha incorreta. Por favor, tente novamente.';
+      default:
+        return 'Ocorreu um erro: ${error.message}';
+    }
+  }
 }

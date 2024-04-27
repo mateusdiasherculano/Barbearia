@@ -12,7 +12,7 @@ class ErrorAlert extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: const Color(0x0fe10a5d),
+          color: const Color(0xFFB3261E),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -20,10 +20,6 @@ class ErrorAlert extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8, left: 8, top: 1.5),
-                child: Image.asset('assets/images/redAlert.png'),
-              ),
               Flexible(
                 child: Text.rich(TextSpan(children: [
                   TextSpan(

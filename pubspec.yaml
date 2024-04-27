@@ -36,6 +36,9 @@ dependencies:
   firebase_core: ^2.29.0
   font_awesome_flutter: ^10.7.0
   design_system: ^1.0.2
+  dio: ^5.4.3+1
+  firebase_crashlytics: ^3.5.4
+
 
 
 
@@ -76,6 +79,7 @@ flutter:
    - assets/images/Login.png
    - assets/images/Register.png
    - assets/images/redAlert.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

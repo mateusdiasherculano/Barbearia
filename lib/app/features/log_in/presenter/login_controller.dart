@@ -23,7 +23,7 @@ class LoginController extends Disposable {
       return;
     }
     if (password.isEmpty) {
-      passwordError.value = 'Senha nao pode ser vazio';
+      passwordError.value = 'Senha nao pode ser vazia';
       return;
     }
     store.login(email, password);

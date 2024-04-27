@@ -41,10 +41,7 @@ class ButtonLoading extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 3),
           child: (outline == true)
               ? OutlineLoadingButton(
-                  loading: loading,
-                  text: text,
-                  onPressed: onPressed,
-                )
+                  loading: loading, text: text, onPressed: onPressed)
               : DefaultLoadingButton(
                   loading: loading,
                   text: text,

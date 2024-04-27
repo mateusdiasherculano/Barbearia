@@ -1,9 +1,10 @@
 import 'package:barbearia/app/features/log_in/presenter/login_controller.dart';
 import 'package:barbearia/components/custom_text_widget.dart';
-import 'package:barbearia/libraries/core/src/error/ErrorAlert.dart';
 import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
 import 'package:barbearia/libraries/design_system/src/common/extension/widgets_extension.dart';
 import 'package:barbearia/libraries/design_system/src/widgets/button/button_loading.dart';
+import 'package:barbearia/libraries/design_system/src/widgets/error/ErrorAlert.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -24,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     controller.store.observer(onState: (state) {
+      // alteração essa rota para a tela home
       Modular.to.navigate('/welcome/');
     }, onError: (error) {
       ErrorAlert(
@@ -69,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 45),
+
+                    /// campo de email
                     AnimatedBuilder(
                         animation: Listenable.merge([
                           controller.emailError,
@@ -96,6 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         }),
                     const SizedBox(height: 10),
+
+                    /// campo de password
                     AnimatedBuilder(
                         animation: controller.passwordError,
                         builder: (context, _) {
@@ -116,6 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                           ));
                         }),
                     const SizedBox(height: 8),
+
+                    ///campo de redefinir senha
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -129,6 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 50),
+
+                    /// botao de login
                     AnimatedBuilder(
                         animation: controller.store.selectLoading,
                         builder: (context, _) {
@@ -141,7 +151,27 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               text: 'LOG IN',
                               loading: controller.store.isLoading);
-                        })
+                        }),
+                    const SizedBox(height: 60),
+                    Align(
+                      alignment: Alignment.center,
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(color: Colors.grey),
+                          children: [
+                            const TextSpan(text: "Don't have an account? "),
+                            TextSpan(
+                              text: 'Register now',
+                              style: const TextStyle(color: Colors.black),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Modular.to.pushNamed('/register');
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -152,100 +182,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-/*
-  Widget buildLoginForm(
-    BuildContext context,
-    LoginController controller,
-    TextEditingController emailTextEditingController,
-    TextEditingController passwordTextEditingController,
-  ) {
-    final size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center, // Centralizar na vertical
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: Image.asset('assets/images/logoseta.png'),
-              ),
-              const Text(
-                'Welcome Back.',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                  height:
-                      15), // Adicionar um espaço entre o texto e o formulário
-              ///Formulário
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 40,
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(45),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    /// email
-                    CustomTextField(
-                      controller: emailTextEditingController,
-                      icon: Icons.email,
-                      label: 'Email',
-                      borderRadius: 0, // Bordas quadras
-                    ),
-
-                    ///senha
-                    CustomTextField(
-                      controller: passwordTextEditingController,
-                      icon: Icons.lock,
-                      label: 'Enter your password',
-                      isSecret: true,
-                      borderRadius: 0, // Bordas quadras
-                    ),
-
-                    /// Botão "Forgot password?"
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // Ação para redefinir a senha
-                        },
-                        child: const Text(
-                          'Forgot password?',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-
-                    /// Widget para colocar imagem
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: GestureDetector(
-                        onTap: () {
-                          controller.login(emailTextEditingController.text,
-                              passwordTextEditingController.text);
-                          //chama a funçao que valida os dados do usuario
-                        },
-                        child: Image.asset('assets/images/Login.png'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
-    );*/

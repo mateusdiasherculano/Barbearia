@@ -1,4 +1,4 @@
-import 'package:barbearia/libraries/core/src/error/ErrorAlert.dart';
+import 'package:barbearia/libraries/design_system/src/widgets/error/ErrorAlert.dart';
 import 'package:barbearia/libraries/design_system/src/widgets/error/sucess_alert.dart';
 import 'package:flutter/material.dart';
 
