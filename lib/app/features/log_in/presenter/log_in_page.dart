@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          // Ação para redefinir a senha
+                          Modular.to.pushNamed('/login/forgot_password');
                         },
                         child: const Text(
                           'Forgot password?',

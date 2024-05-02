@@ -78,7 +78,7 @@ flutter:
    - assets/images/logoseta.png
    - assets/images/Login.png
    - assets/images/Register.png
-   - assets/images/redAlert.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

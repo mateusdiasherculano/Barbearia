@@ -5,6 +5,8 @@ import 'package:barbearia/libraries/core/src/error/failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../domain/entity/reset_password_response.dart';
+
 class LoginDatasourceImpl implements LoginDatasource {
   final FirebaseAuth firebaseAuth = Modular.get();
 
@@ -28,6 +30,27 @@ class LoginDatasourceImpl implements LoginDatasource {
       }
     } catch (e) {
       throw Exception('Erro ao fazer login: $e');
+    }
+  }
+
+  @override
+  Future<ResetPasswordResponse> resetPassword(String? email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email!);
+      return ResetPasswordResponse(
+          message: 'We sent a message to your email reset your password!');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        throw 'Verifique sua conexão de rede.';
+      } else {
+        throw Failure(
+          label: 'Datasource-resetPassword',
+          exception: e,
+          message: AppUtils.getMessage(e) ?? e.message,
+        );
+      }
+    } catch (e) {
+      throw Exception('Erro ao resetar senha: $e');
     }
   }
 }
