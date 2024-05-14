@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     controller.store.observer(onState: (state) {
       // alteração essa rota para a tela home
-      Modular.to.navigate('/welcome/');
+      Modular.to.navigate('/BarberDashboard/');
     }, onError: (error) {
       ErrorAlert(
         message: error?.message,
@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const Key('LoginPage'),
       color: const Color(0xFFf6f6f6),
       child: SafeArea(
         child: Scaffold(
@@ -81,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                         builder: (context, _) {
                           return AutofillGroup(
                             child: CustomTextField(
+                              key: const Key('Campo email'),
                               controller: emailTextEditingController,
                               icon: Icons.email,
                               label: 'Email',
@@ -107,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                         builder: (context, _) {
                           return AutofillGroup(
                               child: CustomTextField(
+                            key: const Key('Campo senha'),
                             controller: passwordTextEditingController,
                             icon: Icons.lock,
                             label: 'password',
@@ -127,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
+                        key: const Key('Campo esqueceu a senha'),
                         onPressed: () {
                           Modular.to.pushNamed('/login/forgot_password');
                         },
@@ -143,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         animation: controller.store.selectLoading,
                         builder: (context, _) {
                           return ButtonLoading(
+                              key: const Key('buttonLogin'),
                               onPressed: () {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 controller.login(
@@ -156,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     Align(
                       alignment: Alignment.center,
                       child: RichText(
+                        key: const Key('buttonRegisterNow'),
                         text: TextSpan(
                           style: const TextStyle(color: Colors.grey),
                           children: [

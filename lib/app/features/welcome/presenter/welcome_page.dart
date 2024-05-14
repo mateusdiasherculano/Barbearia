@@ -7,6 +7,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      key: const Key('welcomeKey'),
       child: Scaffold(
         body: Stack(
           children: [
@@ -45,24 +46,24 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
+                      key: const Key('login_button_key'),
                       onTap: () {
                         Modular.to.pushNamed('/login');
                       },
                       child: Image.asset(
                         'assets/images/Login.png',
-                        key: const Key('login_key'),
                       ),
                     ),
                     const SizedBox(height: 20),
                     GestureDetector(
+                      key: const Key('register_button_key'),
                       onTap: () {
                         Modular.to.pushNamed('/register');
                       },
                       child: Image.asset(
                         'assets/images/Register.png',
-                        key: const Key('register_key'),
                       ),
-                    ), // Sua segunda imagem
+                    ),
                   ],
                 ),
               ),
