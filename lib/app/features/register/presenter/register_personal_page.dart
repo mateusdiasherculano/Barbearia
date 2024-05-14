@@ -1,0 +1,153 @@
+import 'package:barbearia/app/features/register/presenter/register_personal_controller.dart';
+import 'package:barbearia/components/custom_text_widget.dart';
+import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+class PersonalInformationPage extends StatefulWidget {
+  const PersonalInformationPage({Key? key}) : super(key: key);
+
+  @override
+  State<PersonalInformationPage> createState() =>
+      _PersonalInformationPageState();
+}
+
+class _PersonalInformationPageState extends State<PersonalInformationPage> {
+  RegisterPersonalController controller =
+      Modular.get<RegisterPersonalController>();
+  final TextEditingController fullNameTextEditingController =
+      TextEditingController();
+  final TextEditingController emailTextEditingController =
+      TextEditingController();
+  final TextEditingController passwordTextEditingController =
+      TextEditingController();
+  final TextEditingController phoneTextEditingController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFf6f6f6),
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Personal Information',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    AnimatedBuilder(
+                      animation: controller.nameError,
+                      builder: (context, _) {
+                        return AutofillGroup(
+                          child: CustomTextField(
+                            controller: fullNameTextEditingController,
+                            icon: Icons.person,
+                            label: 'Nome',
+                            keyboardType: TextInputType.name,
+                            errorMessage: controller.nameError.value,
+                            onChanged: (value) {
+                              controller.nameError.value = null;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    AnimatedBuilder(
+                      animation: Listenable.merge(
+                          [controller.emailError, controller.emailValidation]),
+                      builder: (context, _) {
+                        return AutofillGroup(
+                          child: CustomTextField(
+                            controller: emailTextEditingController,
+                            icon: Icons.email_outlined,
+                            label: 'E-mail',
+                            keyboardType: TextInputType.emailAddress,
+                            errorMessage: controller.emailError.value,
+                            autofillHints: const <String>[AutofillHints.email],
+                            showValidated: controller.emailValidation.value,
+                            onChanged: (value) {
+                              controller.emailError.value = null;
+                              controller.emailValidation.value = value.isEmail;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    AnimatedBuilder(
+                      animation: controller.passwordError,
+                      builder: (context, _) {
+                        return AutofillGroup(
+                            child: CustomTextField(
+                          controller: passwordTextEditingController,
+                          icon: Icons.lock,
+                          label: 'Senha',
+                          keyboardType: TextInputType.emailAddress,
+                          errorMessage: controller.passwordError.value,
+                          autofillHints: const <String>[AutofillHints.password],
+                          obscureText: true,
+                          onChanged: (value) {
+                            controller.passwordError.value = null;
+                          },
+                        ));
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    AnimatedBuilder(
+                      animation: controller.phoneError,
+                      builder: (context, _) {
+                        return AutofillGroup(
+                            child: CustomTextField(
+                          controller: phoneTextEditingController,
+                          icon: Icons.phone_android_outlined,
+                          label: 'Numero de telefone',
+                          keyboardType: TextInputType.phone,
+                          errorMessage: controller.phoneError.value,
+                          autofillHints: const <String>[
+                            AutofillHints.telephoneNumber
+                          ],
+                          onChanged: (value) {
+                            controller.phoneNumber.value = value.isPhoneNumber;
+                            controller.phoneError.value = null;
+                          },
+                        ));
+                      },
+                    ),
+                    const SizedBox(height: 100),
+                    GestureDetector(
+                      onTap: () {
+                        Modular.to.pushNamed('/upload');
+                        controller.registerPersonal(
+                            fullNameTextEditingController.text,
+                            emailTextEditingController.text,
+                            passwordTextEditingController.text,
+                            phoneTextEditingController.text);
+                      },
+                      child: Image.asset(
+                        'assets/images/next.png',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
