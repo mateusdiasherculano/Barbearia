@@ -1,8 +1,13 @@
+import 'package:barbearia/app/features/register_personal/presenter/register_personal_store.dart';
 import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class RegisterPersonalController extends Disposable {
+  final RegisterPersonalStore store;
+
+  RegisterPersonalController(this.store);
+
   ValueNotifier<String?> emailError = ValueNotifier(null);
   ValueNotifier<bool> emailValidation = ValueNotifier(false);
   ValueNotifier<String?> passwordError = ValueNotifier(null);
@@ -32,6 +37,7 @@ class RegisterPersonalController extends Disposable {
       phoneError.value = 'Numero de telefone não é um numero valido';
       return;
     }
+    store.registerPersonal(name, email, password, phone);
   }
 
   @override

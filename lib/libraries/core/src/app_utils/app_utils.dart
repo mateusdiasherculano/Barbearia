@@ -31,4 +31,25 @@ class AppUtils {
         return 'Ocorreu um erro: ${error.message}';
     }
   }
+
+  static String? getFirebaseErrorMessage(FirebaseException error) {
+    switch (error.code) {
+      case 'unavailable':
+        return 'O serviço está temporariamente indisponível. Por favor, tente novamente mais tarde.';
+      case 'deadline-exceeded':
+        return 'O tempo limite da operação foi excedido. Por favor, tente novamente.';
+      case 'permission-denied':
+        return 'Permissão negada. Você não tem permissão para executar esta operação.';
+      case 'not-found':
+        return 'Documento não encontrado. Por favor, verifique os dados fornecidos.';
+      case 'already-exists':
+        return 'O documento já existe. Por favor, verifique os dados fornecidos.';
+      case 'unauthenticated':
+        return 'Você não está autenticado. Por favor, faça login e tente novamente.';
+      case 'network-request-failed':
+        return 'Falha na solicitação de rede. Por favor, verifique sua conexão com a internet.';
+      default:
+        return 'Ocorreu um erro: ${error.message}';
+    }
+  }
 }

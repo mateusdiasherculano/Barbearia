@@ -1,8 +1,12 @@
-import 'package:barbearia/app/features/register/presenter/register_personal_controller.dart';
+import 'package:barbearia/app/features/register_personal/presenter/register_personal_controller.dart';
 import 'package:barbearia/components/custom_text_widget.dart';
 import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
+import 'package:barbearia/libraries/design_system/src/common/extension/widgets_extension.dart';
+import 'package:barbearia/libraries/design_system/src/widgets/error/ErrorAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../libraries/design_system/src/widgets/error/sucess_alert.dart';
 
 class PersonalInformationPage extends StatefulWidget {
   const PersonalInformationPage({Key? key}) : super(key: key);
@@ -23,6 +27,27 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
       TextEditingController();
   final TextEditingController phoneTextEditingController =
       TextEditingController();
+
+  @override
+  void initState() {
+    controller.store.observer(onState: (state) {
+      SuccessAlert(message: state.message).show(context);
+    }, onError: (error) {
+      ErrorAlert(
+        message: error?.message,
+      ).show(context);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    phoneTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    fullNameTextEditingController.dispose();
+    emailTextEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +155,6 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                     const SizedBox(height: 100),
                     GestureDetector(
                       onTap: () {
-                        Modular.to.pushNamed('/upload');
                         controller.registerPersonal(
                             fullNameTextEditingController.text,
                             emailTextEditingController.text,

@@ -38,7 +38,8 @@ class LoginDatasourceImpl implements LoginDatasource {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email!);
       return ResetPasswordResponse(
-          message: 'We sent a message to your email reset your password!');
+          message:
+              'Enviamos uma mensagem para seu e-mail para redefinir sua senha!');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
         throw 'Verifique sua conexão de rede.';

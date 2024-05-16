@@ -1,5 +1,7 @@
-import 'package:barbearia/app/features/register/presenter/register_personal_page.dart';
+import 'package:barbearia/app/features/register_personal/presenter/register_personal_page.dart';
 import 'package:flutter/material.dart';
+
+import '../../register_upload/presenter/register_upload_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -32,8 +34,8 @@ class _RegisterPageState extends State<RegisterPage> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          const PersonalInformationPage(),
-          Container(color: Colors.red),
+          PersonalInformationPage(),
+          const RegisterUploadPage(),
           Container(color: Colors.black),
           Container(color: Colors.yellow),
           Container(color: Colors.teal),
