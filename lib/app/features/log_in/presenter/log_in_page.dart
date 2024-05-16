@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                                 controller.emailValidation.value =
                                     value.isEmail;
                               },
-                              borderRadius: 0,
                             ),
                           );
                         }),

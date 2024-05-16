@@ -36,7 +36,7 @@ dependencies:
   firebase_core: ^2.29.0
   font_awesome_flutter: ^10.7.0
   design_system: ^1.0.2
-  dio: ^5.4.3+1
+  cloud_firestore: ^4.17.3
   firebase_crashlytics: ^3.5.4
 
 
@@ -80,6 +80,7 @@ flutter:
    - assets/images/logoseta.png
    - assets/images/Login.png
    - assets/images/Register.png
+   - assets/images/next.png
 
 
 

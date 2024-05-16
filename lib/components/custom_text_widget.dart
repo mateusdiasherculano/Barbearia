@@ -16,7 +16,6 @@ class CustomTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final List<String>? autofillHints;
   final bool? obscureText;
-  final double borderRadius; // Nova propriedade para o raio da borda
 
   const CustomTextField({
     Key? key,
@@ -26,7 +25,6 @@ class CustomTextField extends StatefulWidget {
     this.inputFormatters,
     this.initialValue,
     this.controller,
-    this.borderRadius = 18.0, // Valor padrão para o raio da borda
     this.errorMessage,
     this.showValidated,
     this.autofillHints,
