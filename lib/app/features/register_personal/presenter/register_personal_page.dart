@@ -2,6 +2,7 @@ import 'package:barbearia/app/features/register_personal/presenter/register_pers
 import 'package:barbearia/components/custom_text_widget.dart';
 import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
 import 'package:barbearia/libraries/design_system/src/common/extension/widgets_extension.dart';
+import 'package:barbearia/libraries/design_system/src/widgets/button/button_loading.dart';
 import 'package:barbearia/libraries/design_system/src/widgets/error/ErrorAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,12 +33,20 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
   void initState() {
     controller.store.observer(onState: (state) {
       SuccessAlert(message: state.message).show(context);
+      _clearTextFields();
     }, onError: (error) {
       ErrorAlert(
         message: error?.message,
       ).show(context);
     });
     super.initState();
+  }
+
+  void _clearTextFields() {
+    fullNameTextEditingController.clear();
+    emailTextEditingController.clear();
+    passwordTextEditingController.clear();
+    phoneTextEditingController.clear();
   }
 
   @override
@@ -64,7 +73,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                   children: [
                     const Center(
                       child: Text(
-                        'Personal Information',
+                        'Informações Pessoais',
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 20,
@@ -153,17 +162,21 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                       },
                     ),
                     const SizedBox(height: 100),
-                    GestureDetector(
-                      onTap: () {
-                        controller.registerPersonal(
-                            fullNameTextEditingController.text,
-                            emailTextEditingController.text,
-                            passwordTextEditingController.text,
-                            phoneTextEditingController.text);
+                    AnimatedBuilder(
+                      animation: controller.store.selectLoading,
+                      builder: (context, _) {
+                        return ButtonLoading(
+                          onPressed: () {
+                            controller.registerPersonal(
+                                fullNameTextEditingController.text,
+                                emailTextEditingController.text,
+                                passwordTextEditingController.text,
+                                phoneTextEditingController.text);
+                          },
+                          text: 'PRÓXIMO',
+                          loading: controller.store.isLoading,
+                        );
                       },
-                      child: Image.asset(
-                        'assets/images/next.png',
-                      ),
                     ),
                   ],
                 ),

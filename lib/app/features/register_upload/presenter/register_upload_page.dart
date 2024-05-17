@@ -12,7 +12,6 @@ class _RegisterUploadPageState extends State<RegisterUploadPage> {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFf6f6f6),
-      child: const Text('voce esta na tela de imagem  '),
     );
   }
 }

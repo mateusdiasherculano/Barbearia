@@ -7,10 +7,12 @@ import 'package:barbearia/app/features/register_personal/presenter/register_base
 import 'package:barbearia/app/features/register_personal/presenter/register_personal_controller.dart';
 import 'package:barbearia/app/features/register_personal/presenter/register_personal_store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class RegisterModule extends Module {
   void binds(i) {
+    i.addInstance<FirebaseAuth>(FirebaseAuth.instance);
     i.addInstance<FirebaseFirestore>(FirebaseFirestore.instance);
     i.addLazySingleton<RegisterPersonalDatasources>(
         RegisterPersonalDatasourcesImpl.new);
@@ -23,6 +25,5 @@ class RegisterModule extends Module {
 
   void routes(r) {
     r.child('/', child: (context) => const RegisterPage());
-    //r.child('/upload', child: (context) => const RegisterUploadPage());
   }
 }
