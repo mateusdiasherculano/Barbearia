@@ -64,14 +64,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 48),
                     const Text(
-                      'Welcome Back.',
+                      'Bem-vindo de volta.',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontSize: 34,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 45),
+                    const SizedBox(height: 40),
 
                     /// campo de email
                     AnimatedBuilder(
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                               key: const Key('Campo email'),
                               controller: emailTextEditingController,
                               icon: Icons.email,
-                              label: 'Email',
+                              label: 'E-mail',
                               keyboardType: TextInputType.emailAddress,
                               errorMessage: controller.emailError.value,
                               autofillHints: const <String>[
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                         }),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
 
                     /// campo de password
                     AnimatedBuilder(
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                             key: const Key('Campo senha'),
                             controller: passwordTextEditingController,
                             icon: Icons.lock,
-                            label: 'password',
+                            label: 'Senha',
                             keyboardType: TextInputType.text,
                             errorMessage: controller.passwordError.value,
                             autofillHints: const <String>[
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                           Modular.to.pushNamed('/login/forgot_password');
                         },
                         child: const Text(
-                          'Forgot password?',
+                          'Esqueceu sua senha?',
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                                     emailTextEditingController.text,
                                     passwordTextEditingController.text);
                               },
-                              text: 'LOG IN',
+                              text: 'Entrar',
                               loading: controller.store.isLoading);
                         }),
                     const SizedBox(height: 60),
@@ -164,9 +164,9 @@ class _LoginPageState extends State<LoginPage> {
                         text: TextSpan(
                           style: const TextStyle(color: Colors.grey),
                           children: [
-                            const TextSpan(text: "Don't have an account? "),
+                            const TextSpan(text: "Não tem uma conta? "),
                             TextSpan(
-                              text: 'Register now',
+                              text: 'Cadastre-se agora',
                               style: const TextStyle(color: Colors.black),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {

@@ -33,12 +33,20 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
   void initState() {
     controller.store.observer(onState: (state) {
       SuccessAlert(message: state.message).show(context);
+      _clearTextFields();
     }, onError: (error) {
       ErrorAlert(
         message: error?.message,
       ).show(context);
     });
     super.initState();
+  }
+
+  void _clearTextFields() {
+    fullNameTextEditingController.clear();
+    emailTextEditingController.clear();
+    passwordTextEditingController.clear();
+    phoneTextEditingController.clear();
   }
 
   @override
@@ -65,7 +73,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                   children: [
                     const Center(
                       child: Text(
-                        'Personal Information',
+                        'Informações Pessoais',
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 20,
@@ -165,7 +173,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                                 passwordTextEditingController.text,
                                 phoneTextEditingController.text);
                           },
-                          text: 'NEXT',
+                          text: 'PRÓXIMO',
                           loading: controller.store.isLoading,
                         );
                       },

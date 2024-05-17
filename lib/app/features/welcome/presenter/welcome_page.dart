@@ -19,9 +19,9 @@ class WelcomePage extends StatelessWidget {
                   Image.asset('assets/images/logoseta.png'),
                   const SizedBox(height: 40),
                   const Text(
-                    'Book your haircut\n     in seconds',
+                    'Reserve seu corte de cabelo\nem segundos',
                     style: TextStyle(
-                      fontSize: 34,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -29,7 +29,7 @@ class WelcomePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Text(
-                      'Schedule your next haircut within a few seconds. Easily reserve and manage your appointments.',
+                      'Agende seu próximo corte de cabelo em alguns segundos. Reserve e gerencie facilmente seus compromissos.',
                       style: TextStyle(color: Color(0xFF9F9A9A), fontSize: 15),
                     ),
                   ),

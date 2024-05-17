@@ -19,9 +19,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.only(left: 90),
+          padding: EdgeInsets.only(left: 75),
           child: Text(
-            'Register',
+            'CADASTRO',
             style: TextStyle(
               fontSize: 20,
               fontFamily: 'Roboto',
@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          PersonalInformationPage(),
+          const PersonalInformationPage(),
           const RegisterUploadPage(),
           Container(color: Colors.black),
           Container(color: Colors.yellow),
@@ -53,23 +53,23 @@ class _RegisterPageState extends State<RegisterPage> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.account_box),
-              label: 'Personal ',
+              label: 'Inf Pessoais',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.image),
-              label: 'Upload ',
+              label: 'Carregar Foto',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.event_available),
-              label: 'Preferences',
+              label: 'Preferências',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.monetization_on_outlined),
-              label: 'Add Payment Method',
+              label: 'Incluir Cartão',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.done_all),
-              label: 'Almost there',
+              label: 'Quase lá',
             ),
           ]),
     );
