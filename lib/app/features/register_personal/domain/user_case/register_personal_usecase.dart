@@ -2,7 +2,7 @@ import 'package:barbearia/app/features/register_personal/domain/repository/regis
 import 'package:barbearia/app/models/user_profile_model.dart';
 
 abstract class IExecute {
-  Future<Profile> call(
+  Future<RegisterPersonalResponse> call(
       String name, String email, String password, String phone);
 }
 
@@ -11,7 +11,7 @@ class RegisterPersonalUseCase extends IExecute {
 
   RegisterPersonalUseCase(this._repository);
   @override
-  Future<Profile> call(
+  Future<RegisterPersonalResponse> call(
       String? name, String? email, String? password, String? phone) async {
     return await _repository.registerPersonal(name, email, password, phone);
   }

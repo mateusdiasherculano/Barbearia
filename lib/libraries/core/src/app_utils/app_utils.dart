@@ -21,6 +21,8 @@ class AppUtils {
     switch (error.code) {
       case 'user-not-found':
         return 'Usuário não encontrado. Por favor, verifique o email fornecido.';
+      case 'email-already-in-use':
+        return 'Este E-mail ja esta sendo usado por outra conta';
       case 'invalid-credential':
         return 'E-mail ou Senha inválidos. Por favor, verifique seus dados.';
       case 'invalid-email':

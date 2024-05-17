@@ -8,7 +8,7 @@ class RegisterPersonalRepositoryImpl extends RegisterPersonalRepository {
 
   RegisterPersonalRepositoryImpl(this._datasources);
   @override
-  Future<Profile> registerPersonal(
+  Future<RegisterPersonalResponse> registerPersonal(
       String? name, String? email, String? password, String? phone) async {
     return await _datasources.registerPersonal(name, email, password, phone);
   }

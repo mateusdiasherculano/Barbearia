@@ -40,10 +40,26 @@ class UserProfileModel {
   }
 }
 
-class Profile {
-  Profile({
+class RegisterPersonalResponse {
+  RegisterPersonalResponse({
     this.message =
         'dados salvos com sucesso, voce pode seguir para a tela de upload, clicando no icone abaixo',
+  });
+
+  RegisterPersonalResponse.fromJson(dynamic json) {
+    message = json['message'];
+  }
+  String? message;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['message'] = message;
+    return map;
+  }
+}
+
+class Profile {
+  Profile({
     this.uid,
     this.name,
     this.email,
@@ -52,7 +68,6 @@ class Profile {
     this.customerAppVersion,
   });
   Profile.fromJson(dynamic json) {
-    message = json['message'];
     uid = json['id'];
     name = json['name'];
     email = json['email'];
@@ -62,7 +77,6 @@ class Profile {
     mobilePlatform = json['mobile_platform'];
   }
 
-  String? message;
   String? uid;
   String? name;
   String? email;
@@ -73,7 +87,6 @@ class Profile {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (message != null) map['message'] = message;
     if (uid != null) map['id'] = uid;
     if (name != null) map['name'] = name;
     if (email != null) map['email'] = email;

@@ -2,22 +2,31 @@ import 'package:barbearia/app/models/user_profile_model.dart';
 import 'package:barbearia/libraries/core/src/app_utils/app_utils.dart';
 import 'package:barbearia/libraries/core/src/error/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../infra/datasources/register_personal_datasources.dart';
 
 class RegisterPersonalDatasourcesImpl extends RegisterPersonalDatasources {
   final FirebaseFirestore _db = Modular.get();
+  final FirebaseAuth _auth = Modular.get();
   @override
-  Future<Profile> registerPersonal(
+  Future<RegisterPersonalResponse> registerPersonal(
       String? name, String? email, String? password, String? phone) async {
     try {
+      // Criação do usuario com email e senha
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email!,
+        password: password!,
+      );
       // Criação da instancia de Profile com os dados recebidos por parametro
       Profile profile = Profile(
+        uid: userCredential.user?.uid,
         name: name,
         email: email,
-        phone: password,
-        password: phone,
+        password: password,
+        phone: phone,
       );
 
       // Conversão da instancia de profile para json
@@ -27,7 +36,17 @@ class RegisterPersonalDatasourcesImpl extends RegisterPersonalDatasources {
       await _db.collection("Users").add(profileData);
 
       // Retorno da instancia de Profile
-      return profile;
+      return RegisterPersonalResponse();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        throw 'Verifique sua internet';
+      } else {
+        throw Failure(
+          label: 'Datasource-signUp',
+          exception: e,
+          message: AppUtils.getMessage(e) ?? e.message,
+        );
+      }
     } on FirebaseException catch (e) {
       if (e.code == 'network-request-failed') {
         throw 'Verifique sua rede.';
