@@ -2,6 +2,7 @@ import 'package:barbearia/app/features/register_personal/presenter/register_pers
 import 'package:barbearia/components/custom_text_widget.dart';
 import 'package:barbearia/libraries/core/src/extension/string_extensions.dart';
 import 'package:barbearia/libraries/design_system/src/common/extension/widgets_extension.dart';
+import 'package:barbearia/libraries/design_system/src/widgets/button/button_loading.dart';
 import 'package:barbearia/libraries/design_system/src/widgets/error/ErrorAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -153,17 +154,21 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                       },
                     ),
                     const SizedBox(height: 100),
-                    GestureDetector(
-                      onTap: () {
-                        controller.registerPersonal(
-                            fullNameTextEditingController.text,
-                            emailTextEditingController.text,
-                            passwordTextEditingController.text,
-                            phoneTextEditingController.text);
+                    AnimatedBuilder(
+                      animation: controller.store.selectLoading,
+                      builder: (context, _) {
+                        return ButtonLoading(
+                          onPressed: () {
+                            controller.registerPersonal(
+                                fullNameTextEditingController.text,
+                                emailTextEditingController.text,
+                                passwordTextEditingController.text,
+                                phoneTextEditingController.text);
+                          },
+                          text: 'NEXT',
+                          loading: controller.store.isLoading,
+                        );
                       },
-                      child: Image.asset(
-                        'assets/images/next.png',
-                      ),
                     ),
                   ],
                 ),
